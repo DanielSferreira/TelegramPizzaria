@@ -35,5 +35,12 @@ namespace TelegramPizzaria.Controllers
             })
             .ToArray();
         }
+
+[HttpGet("listar")]
+        public string Index()
+        {
+            return "View()";
+        }
+
     }
 }
