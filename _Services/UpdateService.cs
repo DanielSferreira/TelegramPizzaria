@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace TelegramPizzaria._Services
         }
         public async Task EchoAsync(Update update)
         {
-            if(update.Type != UpdateType.Message)
+            if (update.Type != UpdateType.Message)
                 return;
             var message = update.Message;
             _logger.LogInformation("Received Message from {0}", message.Chat.Id);
@@ -44,6 +45,15 @@ namespace TelegramPizzaria._Services
                     await _botService.client.SendTextMessageAsync(message.Chat.Id, "Thx for the Pics");
                     break;
             }
+        }
+
+        public string FecharApi()
+        {
+            return _botService.CloseApi();
+        }
+        public string OpenApi()
+        {
+            return _botService.OpenApi();
         }
     }
 }

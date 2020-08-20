@@ -1,7 +1,10 @@
+using System;
 using Microsoft.Extensions.Options;
-using MihaZupan;
 using Telegram.Bot;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 using TelegramPizzaria.Models;
+using TelegramPizzaria._Services.botOptions;
 
 namespace TelegramPizzaria._Services
 {
@@ -12,14 +15,30 @@ namespace TelegramPizzaria._Services
         public BotService(IOptions<BotConfiguration> config)
         {
             _config = config.Value;
-            // use proxy if configured in appsettings.*.json
             client = new TelegramBotClient(_config.BotToken);
-            // client = string.IsNullOrEmpty(_config.Socks5Host)
-            //     ? new TelegramBotClient(_config.BotToken)
-            //     : new TelegramBotClient(
-            //         _config.BotToken,
-            //         new HttpToSocks5Proxy(_config.Socks5Host, _config.Socks5Port));
+            client.OnMessage += maintence;
+            client.StartReceiving();
         }
-        public TelegramBotClient client { get; } 
+        public TelegramBotClient client { get; }
+
+        public void maintence(object sender, Telegram.Bot.Args.MessageEventArgs e)
+        {
+            if (e.Message.Text != null)
+            {
+                Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
+                new ListOptionGenerator(client).textOp(e);
+            }
+        }
+
+        public string CloseApi()
+        {
+            client.StopReceiving();
+            return "Api foi fechada";
+        }
+        public string OpenApi()
+        {
+            client.StartReceiving();
+            return "Api foi Aberta";
+        }
     }
 }

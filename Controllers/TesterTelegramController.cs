@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
 using TelegramPizzaria._Services;
+using TelegramPizzaria._Services.botOptions;
 
 namespace TelegramPizzaria.Controllers
 {
@@ -13,20 +14,15 @@ namespace TelegramPizzaria.Controllers
         public readonly IUpdateService _updateService;
         public TesterTelegramController(IUpdateService up)
         {
-            Console.WriteLine("AAAAA");
+            ListBotOptions tester = new ListBotOptions();
+            Console.WriteLine(tester.First.LabelQuestionCurrent());
             _updateService = up;
         }
+        [HttpGet("open")]
+        public string Open() => _updateService.OpenApi();
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Update up)
-        {
-            await _updateService.EchoAsync(up);
-            return Ok();
-        }
-        [HttpGet("texto")]
-        public string Texto()
-        {
-            return "Está Funcionando";
-        }
+        [HttpGet("close")]
+        public string Close()=> _updateService.FecharApi();
+        
     }
 }

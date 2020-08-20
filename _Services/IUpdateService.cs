@@ -6,5 +6,7 @@ namespace TelegramPizzaria._Services
     public interface IUpdateService
     {
         Task EchoAsync(Update update);
+        string FecharApi();
+        string OpenApi();
     }
 }
