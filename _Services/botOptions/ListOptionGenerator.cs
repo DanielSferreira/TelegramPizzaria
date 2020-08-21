@@ -18,31 +18,28 @@ namespace TelegramPizzaria._Services.botOptions
             client = _client;
         }
 
-        private ListBotOptions teste = new ListBotOptions();
+        private ListBotOptions OptionList = new ListBotOptions();
         private void getOptionAndSetAnswer(string option)
         {
-            var teste = new ListBotOptions();
-        }
+            string res = OptionList.wellcome_message.OptionQuestionCurrent().Find(i => i == option);
+            Console.WriteLine($"A resposta {res}");
+        } 
 
         public async void textOp(Telegram.Bot.Args.MessageEventArgs e)
         {
+            getOptionAndSetAnswer(e.Message.Text);
+            var kUp = new List<KeyboardButton[]>();
 
-            var kUp = new List<KeyboardButton>();
+            foreach (var item in OptionList.wellcome_message.OptionQuestionCurrent())
+                kUp.Add(new KeyboardButton[]{item.ToString()});
 
-            foreach (var item in teste.First.OptionQuestionCurrent())
-                kUp.Add(new KeyboardButton(item.ToString()));
-            
-             var buttonOption = new ReplyKeyboardMarkup(
-                new KeyboardButton[][]
-                {
-                    kUp.ToArray()
-                },
-                resizeKeyboard: true
-            );
             await client.SendTextMessageAsync(
                 chatId: e.Message.Chat,
-                text: teste.First.LabelQuestionCurrent(),
-                replyMarkup: buttonOption
+                text: OptionList.wellcome_message.LabelQuestionCurrent(),
+                replyMarkup: new ReplyKeyboardMarkup(
+                    kUp.ToArray(),
+                    resizeKeyboard: true
+                )
             );
         }
     }

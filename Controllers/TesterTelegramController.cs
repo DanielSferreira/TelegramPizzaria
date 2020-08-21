@@ -15,7 +15,6 @@ namespace TelegramPizzaria.Controllers
         public TesterTelegramController(IUpdateService up)
         {
             ListBotOptions tester = new ListBotOptions();
-            Console.WriteLine(tester.First.LabelQuestionCurrent());
             _updateService = up;
         }
         [HttpGet("open")]

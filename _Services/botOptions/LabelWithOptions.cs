@@ -16,4 +16,5 @@ namespace TelegramPizzaria._Services.botOptions
         public string LabelQuestionCurrent() => this.name;
         public List<string> OptionQuestionCurrent() => this.option;
     }
+
 }
