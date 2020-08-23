@@ -4,9 +4,9 @@ using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramPizzaria.Models;
-using TelegramPizzaria._Services.botOptions;
+using TelegramPizzaria.Services.botOptions;
 
-namespace TelegramPizzaria._Services
+namespace TelegramPizzaria.Services
 {
     public class BotService : IBotService
     {

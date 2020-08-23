@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace TelegramPizzaria._Services
+namespace TelegramPizzaria.Services
 {
     public interface IUpdateService
     {

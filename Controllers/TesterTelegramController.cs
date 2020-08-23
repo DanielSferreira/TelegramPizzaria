@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
-using TelegramPizzaria._Services;
-using TelegramPizzaria._Services.botOptions;
+using TelegramPizzaria.Services;
+using TelegramPizzaria.Services.botOptions;
 
 namespace TelegramPizzaria.Controllers
 {

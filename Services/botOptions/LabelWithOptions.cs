@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TelegramPizzaria._Services.botOptions
+namespace TelegramPizzaria.Services.botOptions
 {
     public struct LabelWithOptions
     {

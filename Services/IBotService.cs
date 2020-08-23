@@ -1,6 +1,6 @@
 
 using Telegram.Bot;
-namespace TelegramPizzaria._Services 
+namespace TelegramPizzaria.Services 
 {
     public interface IBotService
     {

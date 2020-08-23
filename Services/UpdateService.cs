@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace TelegramPizzaria._Services
+namespace TelegramPizzaria.Services
 {
     public class UpdateService : IUpdateService
     {

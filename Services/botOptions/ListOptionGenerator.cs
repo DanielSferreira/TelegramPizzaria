@@ -6,7 +6,7 @@ using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramPizzaria.Models;
 
-namespace TelegramPizzaria._Services.botOptions
+namespace TelegramPizzaria.Services.botOptions
 {
     public class ListOptionGenerator
     {
@@ -46,14 +46,19 @@ namespace TelegramPizzaria._Services.botOptions
             foreach (var item in OptionList.getNextMessage[OptionListNumInList].OptionQuestionCurrent())
                 kUp.Add(new KeyboardButton[]{item.ToString()});
 
-            await client.SendTextMessageAsync(
-                chatId: e.Message.Chat,
-                text: OptionList.getNextMessage[OptionListNumInList].LabelQuestionCurrent(),
-                replyMarkup: new ReplyKeyboardMarkup(
-                    kUp.ToArray(),
-                    resizeKeyboard: true
-                )
+            await client.SendLocationAsync(
+                chatId: e.Message.Chat,    
+                latitude: (float)-22.7398134,
+                longitude: (float)-43.3893701
             );
+            // await client.SendTextMessageAsync(
+            //     chatId: e.Message.Chat,
+            //     text: OptionList.getNextMessage[OptionListNumInList].LabelQuestionCurrent(),
+            //     replyMarkup: new ReplyKeyboardMarkup(
+            //         kUp.ToArray(),
+            //         resizeKeyboard: true
+            //     )
+            // );
         }
     }
 }

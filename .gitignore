@@ -2,7 +2,7 @@
 *.swp
 *.*~
 project.lock.json
-.DS_Store
+.DSStore
 *.pyc
 nupkg/
 
