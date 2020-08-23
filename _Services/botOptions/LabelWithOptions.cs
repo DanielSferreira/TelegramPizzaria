@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 namespace TelegramPizzaria._Services.botOptions
@@ -7,14 +6,18 @@ namespace TelegramPizzaria._Services.botOptions
     {
         private string name;
         private List<string> option;
-        public LabelWithOptions(string n, List<string> o)
+        private List<int> tie_trigger;
+
+        public LabelWithOptions(string n, List<string> o, List<int> t)
         {
             name = n;
             option = o;
+            tie_trigger = t;
         }
 
         public string LabelQuestionCurrent() => this.name;
         public List<string> OptionQuestionCurrent() => this.option;
+        public int Next(int i) => this.tie_trigger[i];
     }
 
 }

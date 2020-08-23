@@ -19,23 +19,36 @@ namespace TelegramPizzaria._Services.botOptions
         }
 
         private ListBotOptions OptionList = new ListBotOptions();
+        private int OptionListNumInList = 0;
+
         private void getOptionAndSetAnswer(string option)
         {
-            string res = OptionList.wellcome_message.OptionQuestionCurrent().Find(i => i == option);
-            Console.WriteLine($"A resposta {res}");
+            var lista = OptionList.getNextMessage[OptionListNumInList];
+            var listaOption = lista.OptionQuestionCurrent();
+            int res = listaOption.IndexOf(option);
+
+            if(listaOption.Find(i => i == option) == "")
+                return;
+            else
+            {
+                if(res >= 0){
+                    int nextIntList = lista.Next(res);
+                    OptionListNumInList = nextIntList; 
+                }
+            }
         } 
 
         public async void textOp(Telegram.Bot.Args.MessageEventArgs e)
         {
             getOptionAndSetAnswer(e.Message.Text);
-            var kUp = new List<KeyboardButton[]>();
 
-            foreach (var item in OptionList.wellcome_message.OptionQuestionCurrent())
+            var kUp = new List<KeyboardButton[]>();
+            foreach (var item in OptionList.getNextMessage[OptionListNumInList].OptionQuestionCurrent())
                 kUp.Add(new KeyboardButton[]{item.ToString()});
 
             await client.SendTextMessageAsync(
                 chatId: e.Message.Chat,
-                text: OptionList.wellcome_message.LabelQuestionCurrent(),
+                text: OptionList.getNextMessage[OptionListNumInList].LabelQuestionCurrent(),
                 replyMarkup: new ReplyKeyboardMarkup(
                     kUp.ToArray(),
                     resizeKeyboard: true
