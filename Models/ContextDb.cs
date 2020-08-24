@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Models.Data
+using Models.Data;
 namespace Models
 {
-    public class ContextDb : DBContext
+    public class ContextDb : DbContext
     {
-        public DbSet<Pizzas> pizzas { get; set; }
-        public DbSet<Combos> combos { get; set; }
+        public DbSet<Pizza> pizzas { get; set; }
+        public DbSet<listIngredientes> listIngredientes { get; set; }
+        public DbSet<Combo> combos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=data.db");
+            => options.UseSqlite("Data Source=C:\\Users\\DAN\\Documents\\projetos\\Dotnet\\TelegramPizzaria\\data.db");
     }    
 }

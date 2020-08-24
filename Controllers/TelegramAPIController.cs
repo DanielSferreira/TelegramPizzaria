@@ -1,41 +1,30 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Telegram.Bot;
+using Telegram.Bot.Types;
+using TelegramPizzaria.Services;
+using TelegramPizzaria.Services.botOptions;
 
 namespace TelegramPizzaria.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TelegramAPIController : Controller
+    public class TesterTelegramController : Controller
     {
-        public TelegramAPIController()
+        public readonly IUpdateService _updateService;
+        
+        public TesterTelegramController(IUpdateService up)
         {
-            var botClient = new TelegramBotClient("1379984187:AAF4ib9EzgcVSMfsiPWRWWa2x93-775x_RU");
-            var me = botClient.GetMeAsync().Result;
-            Console.WriteLine(
-                $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
-            );
+            ListBotOptions tester = new ListBotOptions();
+            _updateService = up;
         }
-        [HttpGet("listar")]
-        public string Index()
-        {
-            return "View()";
-        }
+        
+        [HttpGet("open")]
+        public string Open() => _updateService.OpenApi();
 
-
-        [HttpGet("Wellcome")]
-        public string Wellcome()
-        {
-            return "View()";
-        }
-        [HttpGet]
-        public string Get()
-        {
-            return "View()";
-        }
+        [HttpGet("close")]
+        public string Close()=> _updateService.FecharApi();
+        
+        
     }
 }
