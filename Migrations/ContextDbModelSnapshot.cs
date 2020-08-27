@@ -16,10 +16,30 @@ namespace TelegramPizzaria.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7");
 
+            modelBuilder.Entity("Models.Data.Bebida", b =>
+                {
+                    b.Property<int>("BebidaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeBebida")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("BebidaId");
+
+                    b.ToTable("bebidas");
+                });
+
             modelBuilder.Entity("Models.Data.Combo", b =>
                 {
                     b.Property<int>("ComboId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("BebidaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descricao")
@@ -28,7 +48,14 @@ namespace TelegramPizzaria.Migrations
                     b.Property<string>("NomeCombo")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("PizzaId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("ComboId");
+
+                    b.HasIndex("BebidaId");
+
+                    b.HasIndex("PizzaId");
 
                     b.ToTable("combos");
                 });
@@ -67,6 +94,17 @@ namespace TelegramPizzaria.Migrations
                     b.HasIndex("PizzaId");
 
                     b.ToTable("listIngredientes");
+                });
+
+            modelBuilder.Entity("Models.Data.Combo", b =>
+                {
+                    b.HasOne("Models.Data.Bebida", "Bebida")
+                        .WithMany()
+                        .HasForeignKey("BebidaId");
+
+                    b.HasOne("Models.Data.Pizza", "Pizza")
+                        .WithMany()
+                        .HasForeignKey("PizzaId");
                 });
 
             modelBuilder.Entity("Models.Data.listIngredientes", b =>

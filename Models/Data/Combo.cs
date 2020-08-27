@@ -6,6 +6,7 @@ namespace Models.Data
         public int ComboId {get;set;}
         public string NomeCombo {get;set;}
         public string Descricao {get;set;}
-        public List<Entity> ItemsCombo {get;} = new List<Entity>();
+        public Pizza Pizza {get;set;}
+        public Bebida Bebida {get;set;}
     }
 }

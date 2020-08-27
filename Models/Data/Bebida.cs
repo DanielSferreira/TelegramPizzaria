@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 namespace Models.Data
 {
-    public class Bebidas : Entity
+    public class Bebida : Entity
     {
-        public int BebidasId {get;set;}
+        public int BebidaId {get;set;}
         public string NomeBebida {get;set;}
         public string Descricao {get;set;}
     }
