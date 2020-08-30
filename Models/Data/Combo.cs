@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 namespace Models.Data
 {
     public class Combo : Entity

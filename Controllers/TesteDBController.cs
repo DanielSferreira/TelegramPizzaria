@@ -85,15 +85,15 @@ namespace TelegramPizzaria.Controllers
                 .First();
             var combo = db.combos.Add(
                 new Combo() {
-                    NomeCombo = "Combo Pizza Grande + Antartica",
+                    NomeCombo = $"{p.NomePizza} com {b.NomeBebida}",
                     Descricao = "Muita Pizza com uma Antartica geladinha",
                     Pizza = p,
                     Bebida = b 
                 }
             );
-            db.SaveChanges();
-            var c = db.combos.Where(a => a.ComboId > 0).First();
-            return Json(combo);
+            // db.SaveChanges();
+            var c = db.combos.Where(a => a.ComboId ==5).First();
+            return Json(c);
         }
         [HttpGet("getCombo")]
         public IActionResult abc()
