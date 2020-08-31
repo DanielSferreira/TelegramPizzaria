@@ -11,6 +11,7 @@ namespace TelegramPizzaria.Services
     public class BotService : IBotService
     {
         private readonly BotConfiguration _config;
+        public TelegramBotClient client { get; }
 
         public BotService(IOptions<BotConfiguration> config)
         {
@@ -19,7 +20,6 @@ namespace TelegramPizzaria.Services
             client.OnMessage += maintence;
             client.StartReceiving();
         }
-        public TelegramBotClient client { get; }
 
         public void maintence(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
@@ -29,16 +29,15 @@ namespace TelegramPizzaria.Services
                 new ListOptionGenerator(client).textOp(e);
             }
         }
-
-        public string CloseApi()
-        {
-            client.StopReceiving();
-            return "Api foi fechada";
-        }
         public string OpenApi()
         {
             client.StartReceiving();
             return "Api foi Aberta";
+        }
+        public string CloseApi()
+        {
+            client.StopReceiving();
+            return "Api foi fechada";
         }
     }
 }

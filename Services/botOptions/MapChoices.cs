@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using Telegram.Bot;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using TelegramPizzaria.Models;
 using TelegramPizzaria.Services.botOptions;
+using TelegramPizzaria.Services.botOptions.Options;
 // await client.SendLocationAsync(
             //     chatId: e.Message.Chat,    
             //     latitude: (float)-22.7398134,
@@ -16,6 +14,12 @@ namespace TelegramPizzaria.Services.AdrressForOrder
         private ListBotOptions OptionList = new ListBotOptions();
         private int OptionListNumInList = 0;
         
+        public void FindInDict(string option)
+        {
+            DictionaryBot a = new DictionaryBot();
+            System.Console.WriteLine(a.returnNewAction(option).LabelQuestionCurrent);
+            
+        }
         public void FindOptions(string option)
         {
             var lista = OptionList.getNextMessage[OptionListNumInList];

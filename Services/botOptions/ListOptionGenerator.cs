@@ -1,7 +1,7 @@
 using Telegram.Bot;
-using TelegramPizzaria.Models;
 using TelegramPizzaria.Services.AdrressForOrder;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.Enums;
 
 namespace TelegramPizzaria.Services.botOptions
 {
@@ -20,9 +20,11 @@ namespace TelegramPizzaria.Services.botOptions
         public async void textOp(Telegram.Bot.Args.MessageEventArgs e)
         {
             opt.FindOptions(e.Message.Text);
+            opt.FindInDict(e.Message.Text);
 
             await client.SendTextMessageAsync(
                 chatId: e.Message.Chat,
+                parseMode: ParseMode.Html,
                 text: opt.labelCurrent(),
                 replyMarkup: new ReplyKeyboardMarkup(
                     opt.getButtons(),

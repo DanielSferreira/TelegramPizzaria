@@ -9,7 +9,6 @@ namespace TelegramPizzaria.Services.botOptions
         public LabelWithOptions check_ower;
         
         public List<LabelWithOptions> getNextMessage = new List<LabelWithOptions>();
-
         public ListBotOptions()
         {
             getNextMessage.Add(new LabelWithOptions(
@@ -37,7 +36,7 @@ namespace TelegramPizzaria.Services.botOptions
                 }
             ));
             getNextMessage.Add(new LabelWithOptions(
-                "Quer ver os pedidos feitos? \n *Não* tem problema",
+                "Quer ver os pedidos feitos? \n <b>Não</b> tem problema",
                 new List<string>() {
                     "Os pedidos em andamento",
                     "Os pedidos já entregues",
