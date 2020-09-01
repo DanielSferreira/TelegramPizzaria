@@ -20,7 +20,6 @@ namespace TelegramPizzaria.Controllers
         
         public TesterTelegramController(IUpdateService up)
         {
-            ListBotOptions tester = new ListBotOptions();
             _updateService = up;
         }
         
@@ -34,7 +33,6 @@ namespace TelegramPizzaria.Controllers
         public IActionResult getLagiLongitudeByCEP()
         {
             var clt = new RestClient("https://www.cepaberto.com/api/v3/");
-            //var request = new RestRequest("address")
             var request = new RestRequest("address")
                 .AddHeader("Authorization", "Token token=e715441276928dba38f999dc19d28666")
                 .AddParameter("estado", "RJ")

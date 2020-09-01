@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Models;
 using System.Linq;
-using BotOptions.Options;
 
 namespace TelegramPizzaria.Services.botOptions.Options
 {
@@ -13,12 +12,7 @@ namespace TelegramPizzaria.Services.botOptions.Options
             db = new ContextDb();
             OptionFromOrigin = "";
             LabelQuestionCurrent = "Vamos fazer um pedido?, escolha o combo";
-            //OptionQuestionCurrent = getCombos();
-            OptionQuestionCurrent = new List<string>() {
-                    "Combo pizza grande",
-                    "Combo pizza bem grande",
-                    "Combo pizza média",
-            };
+            OptionQuestionCurrent = getCombos();
         }
         public List<string> getCombos()
         { 

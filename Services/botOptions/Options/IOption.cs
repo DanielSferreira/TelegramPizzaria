@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BotOptions.Options
+namespace TelegramPizzaria.Services.botOptions.Options
 {
     public abstract class IOption
     {
