@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TelegramPizzaria.Services;
 using TelegramPizzaria.Models;
+using Telegram.Bot;
 
 namespace TelegramPizzaria
 {
@@ -29,6 +30,8 @@ namespace TelegramPizzaria
         {
             services.AddScoped<IUpdateService, UpdateService>();
             services.AddSingleton<IBotService, BotService>();
+            var comod = new TelegramBotClient(Configuration.GetSection("BotToken").Value);
+            services.AddSingleton<TelegramBotClient>(comod);
             services.Configure<BotConfiguration>(Configuration.GetSection("BotConfiguration"));
 
             services

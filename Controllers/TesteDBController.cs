@@ -99,7 +99,7 @@ namespace TelegramPizzaria.Controllers
         public IActionResult abc()
         {
             var combo = db.combos.Where(x => x.ComboId > 0);
-            System.Console.WriteLine(combo.ToString());
+            //System.Console.WriteLine(combo.ToString());
             return Json(combo);
         }
     }

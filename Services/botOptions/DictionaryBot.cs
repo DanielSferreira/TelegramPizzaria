@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 namespace TelegramPizzaria.Services.botOptions.Options
 {
     public class DictionaryBot
@@ -15,6 +16,9 @@ namespace TelegramPizzaria.Services.botOptions.Options
 
         public IOption returnNewAction(string par)
         {
+            if(par.Contains("Combo: ") == true)
+                return new RequestAddress();
+            
             try
             {
                 return dict[par];
@@ -24,7 +28,6 @@ namespace TelegramPizzaria.Services.botOptions.Options
                 return dict["O que deseja"];
                 throw;
             }
-            //return new WellcomeMessage();
         }
     }
 }

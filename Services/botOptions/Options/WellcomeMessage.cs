@@ -6,7 +6,7 @@ namespace TelegramPizzaria.Services.botOptions.Options
     {
         public WellcomeMessage()
         {
-            OptionFromOrigin = "first";
+            OptionFromOrigin = "botoes";
             LabelQuestionCurrent = "O que Deseja?";
             OptionQuestionCurrent = new List<string>() {
                     "Fazer um novo pedido",

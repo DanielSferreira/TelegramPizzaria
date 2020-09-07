@@ -17,6 +17,10 @@ namespace TelegramPizzaria.Services.AdrressForOrder
 
         public string labelCurrentDict()
             => DictOption.LabelQuestionCurrent;
+        
+        
+        public string TypeMessage()
+            => DictOption.OptionFromOrigin;
 
         public KeyboardButton[][] getButtons()
         {

@@ -17,18 +17,53 @@ namespace TelegramPizzaria.Services.botOptions
             opt = new MapChoices();
         }
 
-        public async void textOp(Telegram.Bot.Args.MessageEventArgs e)
-        {
-            opt.FindInDict(e.Message.Text);
+        private Telegram.Bot.Args.MessageEventArgs MessagesE;
 
+        public void UpdateMessageEvent(Telegram.Bot.Args.MessageEventArgs e)
+        {
+            MessagesE = e;
+        }
+
+        public void GatwayMessages()
+        {
+            opt.FindInDict(MessagesE.Message.Text);
+
+            if (opt.TypeMessage() == "botoes")
+                MessageWithOptions();
+            else if (opt.TypeMessage() == "Sem Botoes")
+                Message();
+            else if (opt.TypeMessage() == "Address")
+                MessageAddress();
+
+        }
+        public async void MessageWithOptions()
+        {
             await client.SendTextMessageAsync(
-                chatId: e.Message.Chat,
+                chatId: MessagesE.Message.Chat,
                 parseMode: ParseMode.Html,
                 text: opt.labelCurrentDict(),
                 replyMarkup: new ReplyKeyboardMarkup(
                     opt.getButtons(),
                     resizeKeyboard: true
                 )
+            );
+        }
+        public async void Message()
+        {
+            await client.SendTextMessageAsync(
+                chatId: MessagesE.Message.Chat,
+                parseMode: ParseMode.Html,
+                text: opt.labelCurrentDict(),
+                replyMarkup: new ReplyKeyboardRemove()
+            );
+        }
+        public async void MessageAddress()
+        {
+            await client.SendTextMessageAsync(
+                chatId: MessagesE.Message.Chat,
+                parseMode: ParseMode.Html,
+                text: opt.labelCurrentDict()+ MessagesE.Message.Text,
+                replyMarkup: new ReplyKeyboardRemove()
             );
         }
     }

@@ -6,7 +6,7 @@ namespace TelegramPizzaria.Services.botOptions.Options
     {
         public CheckOwer()
         {
-            OptionFromOrigin = "Fazer um novo pedido";
+            OptionFromOrigin = "botoes";
             LabelQuestionCurrent = "Quer ver os pedidos feitos? \n <b>Não</b> tem problema";
             //OptionQuestionCurrent = getCombos();
             OptionQuestionCurrent = new List<string>() {

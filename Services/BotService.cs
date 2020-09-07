@@ -10,13 +10,11 @@ namespace TelegramPizzaria.Services
 {
     public class BotService : IBotService
     {
-        private readonly BotConfiguration _config;
         public TelegramBotClient client { get; }
 
-        public BotService(IOptions<BotConfiguration> config)
+        public BotService(IOptions<BotConfiguration> config, TelegramBotClient tl )
         {
-            _config = config.Value;
-            client = new TelegramBotClient(_config.BotToken);
+            client = tl;
             client.OnMessage += maintence;
             client.StartReceiving();
         }
@@ -26,7 +24,10 @@ namespace TelegramPizzaria.Services
             if (e.Message.Text != null)
             {
                 Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
-                new ListOptionGenerator(client).textOp(e);
+                var listO = new ListOptionGenerator(client);
+                listO.UpdateMessageEvent(e);
+                listO.GatwayMessages();
+
             }
         }
         public string OpenApi()
