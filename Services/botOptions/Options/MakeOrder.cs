@@ -10,14 +10,13 @@ namespace TelegramPizzaria.Services.botOptions.Options
         public MakeOrder()
         {
             db = new ContextDb();
-            OptionFromOrigin = "botoes";
-            LabelQuestionCurrent = "Vamos fazer um pedido?, escolha o combo";
+            OptionFromOrigin = (int)ButtonsTypes.Botoes;
+            LabelQuestionCurrent = "Vamos fazer um pedido?, \n Escolha o combo";
             OptionQuestionCurrent = getCombos();
         }
         public List<string> getCombos()
         { 
             var combo = db.combos.Select(x => x.NomeCombo).ToList();
-            // System.Console.WriteLine(combo.ToString());
             return combo;
         }
     }

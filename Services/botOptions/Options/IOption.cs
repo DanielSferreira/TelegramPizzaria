@@ -7,7 +7,7 @@ namespace TelegramPizzaria.Services.botOptions.Options
 
         public string LabelQuestionCurrent { get; set; }
         public List<string> OptionQuestionCurrent { get; set; }
-        public string OptionFromOrigin { get; set; }
+        public int OptionFromOrigin { get; set; }
 
 
     }

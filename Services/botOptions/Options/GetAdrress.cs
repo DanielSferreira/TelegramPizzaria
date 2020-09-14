@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Telegram.Bot;
 
 namespace TelegramPizzaria.Services.botOptions.Options
 {
@@ -7,8 +6,12 @@ namespace TelegramPizzaria.Services.botOptions.Options
     {
         public GetAdrress()
         {
-            OptionFromOrigin = "Address";
-            LabelQuestionCurrent = "Antes de continuar, comfirme seu endereço: \n ";
+            OptionFromOrigin = (int)ButtonsTypes.BotoesAdrress;
+            LabelQuestionCurrent = "O endereço está correto?";
+            OptionQuestionCurrent = new List<string>() {
+                    "Sim.",
+                    "Não.",
+            };  
         }
     }
 }

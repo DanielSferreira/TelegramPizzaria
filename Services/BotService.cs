@@ -17,16 +17,17 @@ namespace TelegramPizzaria.Services
             client = tl;
             client.OnMessage += maintence;
             client.StartReceiving();
+            listOptions = new ListOptionGenerator(client);
         }
-
+        private ListOptionGenerator listOptions;
         public void maintence(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             if (e.Message.Text != null)
             {
                 Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
-                var listO = new ListOptionGenerator(client);
-                listO.UpdateMessageEvent(e);
-                listO.GatwayMessages();
+                //var listO = new ListOptionGenerator(client);
+                listOptions.UpdateMessageEvent(e);
+                listOptions.GatwayMessages();
 
             }
         }

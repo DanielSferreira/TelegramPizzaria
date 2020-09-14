@@ -1,12 +1,7 @@
 using System.Collections.Generic;
 using Telegram.Bot.Types.ReplyMarkups;
-using TelegramPizzaria.Services.botOptions;
 using TelegramPizzaria.Services.botOptions.Options;
-// await client.SendLocationAsync(
-//     chatId: e.Message.Chat,    
-//     latitude: (float)-22.7398134,
-//     longitude: (float)-43.3893701
-// );
+
 namespace TelegramPizzaria.Services.AdrressForOrder
 {
     public class MapChoices
@@ -17,9 +12,8 @@ namespace TelegramPizzaria.Services.AdrressForOrder
 
         public string labelCurrentDict()
             => DictOption.LabelQuestionCurrent;
-        
-        
-        public string TypeMessage()
+
+        public int TypeMessage()
             => DictOption.OptionFromOrigin;
 
         public KeyboardButton[][] getButtons()
