@@ -3,6 +3,9 @@ using TelegramPizzaria.Services.AdrressForOrder;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Types.Enums;
 using TelegramPizzaria.Services.botOptions.Options;
+using System;
+using Services.MakeOrder;
+
 namespace TelegramPizzaria.Services.botOptions
 {
     public class ListOptionGenerator
@@ -10,26 +13,53 @@ namespace TelegramPizzaria.Services.botOptions
 
         private readonly TelegramBotClient client;
         private MapChoices opt;
+        DateTime timeComparer = new DateTime();
 
+        LocationHelper H_Location;
         public ListOptionGenerator(TelegramBotClient _client)
         {
             client = _client;
             opt = new MapChoices();
+            H_Location = new LocationHelper();
         }
 
         private Telegram.Bot.Args.MessageEventArgs MessagesE;
 
         public void UpdateMessageEvent(Telegram.Bot.Args.MessageEventArgs e)
             => MessagesE = e;
-        
-        private string endereco = "";
-        private string slg = "";
-        private string city = "";
 
-        LocationHelper H_Location = new LocationHelper();
+
+        private OrderCombo orderCombo;
+        public void MakeOrderCombo()
+        {
+            if (MessagesE.Message.Text.Contains("Combo: ") == true)
+            {
+                orderCombo = new OrderCombo();
+                orderCombo.combo_name = MessagesE.Message.Text;
+                orderCombo.id_user = MessagesE.Message.MessageId;
+            }
+            if (MessagesE.Message.Text.Contains("Tudo Bem!") == true)
+            {
+                orderCombo.Address = $"{H_Location.endereco}, {H_Location.city} - {H_Location.slg}";
+                orderCombo.Data = System.DateTime.Now;
+                orderCombo.addNewOrderCombo();
+                System.Console.WriteLine("Pedido Feito e Salvo");
+            }
+						if (MessagesE.Message.Text.StartsWith("nº: ") == true)
+            {
+                opt.FindInDict("nº: ",1);
+            }
+
+        }
         public void GatwayMessages()
         {
+            if (timeComparer == MessagesE.Message.Date)
+                return;
+
+            timeComparer = MessagesE.Message.Date;
+            MakeOrderCombo();
             opt.FindInDict(H_Location.LocationSequenceHelper(MessagesE));
+
             switch (opt.TypeMessage())
             {
                 case (int)ButtonsTypes.Botoes:
@@ -64,10 +94,10 @@ namespace TelegramPizzaria.Services.botOptions
         public async void Message()
         {
             await client.SendTextMessageAsync(
-                chatId: MessagesE.Message.Chat,
-                parseMode: ParseMode.Html,
-                text: opt.labelCurrentDict(),
-                replyMarkup: new ReplyKeyboardRemove()
+                    chatId: MessagesE.Message.Chat,
+                    parseMode: ParseMode.Html,
+                    text: opt.labelCurrentDict(),
+                    replyMarkup: new ReplyKeyboardRemove()
             );
         }
         public async void MessageAddress()
@@ -75,7 +105,7 @@ namespace TelegramPizzaria.Services.botOptions
             await client.SendTextMessageAsync(
                 chatId: MessagesE.Message.Chat,
                 parseMode: ParseMode.Html,
-                text: $"<b>{opt.labelCurrentDict()}:</b>  \n {H_Location.slg}, {H_Location.city}, - {H_Location.endereco}",
+                text: $"<b>{opt.labelCurrentDict()}:</b>  \n {H_Location.endereco}, {H_Location.city}, - {H_Location.slg}",
                 replyMarkup: new ReplyKeyboardMarkup(
                     opt.getButtons(),
                     resizeKeyboard: true
@@ -86,11 +116,20 @@ namespace TelegramPizzaria.Services.botOptions
         {
             System.Console.WriteLine($"SLG {H_Location.slg}, cidade {H_Location.city} e rua {H_Location.endereco}");
             var address = new GetAddressFromApi();
-            var loc = address.Location(slg, city, endereco);
+            var loc = address.Location(H_Location.slg, H_Location.city, H_Location.endereco);
             await client.SendLocationAsync(
                 chatId: MessagesE.Message.Chat,
                 latitude: loc.latitude,
                 longitude: loc.longitude
+            );
+            await client.SendTextMessageAsync(
+                chatId: MessagesE.Message.Chat,
+                parseMode: ParseMode.Html,
+                text: opt.labelCurrentDict(),
+                replyMarkup: new ReplyKeyboardMarkup(
+                    opt.getButtons(),
+                    resizeKeyboard: true
+                )
             );
         }
     }

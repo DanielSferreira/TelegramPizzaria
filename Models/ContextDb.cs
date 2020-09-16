@@ -9,6 +9,7 @@ namespace Models
         public DbSet<Bebida> bebidas { get; set; }
         public DbSet<listIngredientes> listIngredientes { get; set; }
         public DbSet<Combo> combos { get; set; }
+        public DbSet<Orders> orders { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=data.db");

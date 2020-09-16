@@ -17,13 +17,16 @@ namespace TelegramPizzaria.Services.botOptions.Options
             dict.Add("city", new RequestAddress());
             dict.Add("Adrress", new GetAdrress());
             dict.Add("Sim.", new AfterConfirmAddress());
-            dict.Add("Não.", new CheckOwer());
+            dict.Add("Não.", new RequestLocation());
+            dict.Add("Tudo Bem!", new SaveOrder());
+            dict.Add("Os pedidos em andamento", new LoadOrder());
         }
 
         public IOption returnNewAction(string par)
         {
             
-            if(par.Contains("Combo: ") == true) return dict["Combo"];
+            if(par.StartsWith("Combo: ") == true) return dict["Combo"];
+            //if(par.Contains("Pedidos: ") == true) return dict["Pedido"];
             
             try
             { return dict[par]; }
@@ -32,6 +35,12 @@ namespace TelegramPizzaria.Services.botOptions.Options
                 return dict["O que deseja"];
                 throw;
             }
+        }
+        public IOption returnNewAction(string par, int args)
+        {
+            System.Console.WriteLine("Cai aqui não");
+            return new LoadOrderDetails(args);
+            
         }
     }
 }

@@ -9,6 +9,8 @@ namespace TelegramPizzaria.Services.AdrressForOrder
         private IOption DictOption;
         public void FindInDict(string option)
             => DictOption = new DictionaryBot().returnNewAction(option);
+        public void FindInDict(string option, int args)
+            => DictOption = new DictionaryBot().returnNewAction(option, args);
 
         public string labelCurrentDict()
             => DictOption.LabelQuestionCurrent;

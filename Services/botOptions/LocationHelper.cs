@@ -28,13 +28,9 @@ namespace TelegramPizzaria.Services.botOptions
 
         bool CityBool = false;
         bool AddressBool = false;
-        DateTime timeComparer = new DateTime();
         public string LocationSequenceHelper(Telegram.Bot.Args.MessageEventArgs MessagesE)
         {
-            if(timeComparer == MessagesE.Message.Date)
-                return null;
             
-            timeComparer = MessagesE.Message.Date;
                         
             if (FindSlg(MessagesE.Message.Text) != "erro")
             {
