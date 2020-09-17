@@ -16,7 +16,7 @@ namespace TelegramPizzaria.Services.botOptions.Options
         }
         public List<string> getCombos()
         { 
-            var combo = db.orders.Select(x => "nº: " + x.UserID + " - " + x.ComboNameReference).ToList();
+            var combo = db.orders.Select(x => "nº: " + x.OrdersId + " - " + x.ComboNameReference).ToList();
             return combo;
         }
     }

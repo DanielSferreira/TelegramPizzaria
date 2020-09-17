@@ -10,6 +10,7 @@ namespace Models
         public DbSet<listIngredientes> listIngredientes { get; set; }
         public DbSet<Combo> combos { get; set; }
         public DbSet<Orders> orders { get; set; }
+        public DbSet<OrdersCompleted> ordersCompleted { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=data.db");

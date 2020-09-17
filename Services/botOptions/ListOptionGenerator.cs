@@ -43,22 +43,29 @@ namespace TelegramPizzaria.Services.botOptions
                 orderCombo.Address = $"{H_Location.endereco}, {H_Location.city} - {H_Location.slg}";
                 orderCombo.Data = System.DateTime.Now;
                 orderCombo.addNewOrderCombo();
-                System.Console.WriteLine("Pedido Feito e Salvo");
             }
-						if (MessagesE.Message.Text.StartsWith("nº: ") == true)
+            if (MessagesE.Message.Text.StartsWith("nº: ") == true)
             {
-                opt.FindInDict("nº: ",1);
+                int beginS = MessagesE.Message.Text.IndexOf(":");
+                var tex = MessagesE.Message.Text.Substring(MessagesE.Message.Text.IndexOf(":")+2).Split(" ");
+                opt.FindInDict("nº: ",System.Convert.ToInt32(tex[0]));
+            }
+            if (MessagesE.Message.Text.EndsWith("Já peguei, esse Pedido!"))
+            {
+                string[] tex = MessagesE.Message.Text.Split(" ");
+                opt.FindInDict("removerPedido",System.Convert.ToInt32(tex[0]));
             }
 
         }
         public void GatwayMessages()
         {
+                System.Console.WriteLine(MessagesE.Message.Text);
             if (timeComparer == MessagesE.Message.Date)
                 return;
 
             timeComparer = MessagesE.Message.Date;
-            MakeOrderCombo();
             opt.FindInDict(H_Location.LocationSequenceHelper(MessagesE));
+            MakeOrderCombo();
 
             switch (opt.TypeMessage())
             {

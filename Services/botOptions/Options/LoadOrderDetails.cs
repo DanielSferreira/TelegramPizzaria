@@ -7,18 +7,24 @@ namespace TelegramPizzaria.Services.botOptions.Options
     public class LoadOrderDetails : IOption
     {
         private ContextDb db;
-        public LoadOrderDetails(double id)
+        private int orders;
+        public LoadOrderDetails(int id)
         {
             db = new ContextDb();
             OptionFromOrigin = (int)ButtonsTypes.Botoes;
-            LabelQuestionCurrent = getCombos(id);
+            LabelQuestionCurrent = MessageComboText(id);
+            OptionQuestionCurrent = new List<string>() {
+                $"{orders} Já peguei, esse Pedido!",
+                "Inicio"
+            };
         }
-        public string getCombos(double id)
+        public string MessageComboText(int id)
         {
             try
             {
                 var x = db.orders.Where(xi => xi.OrdersId == id).FirstOrDefault();
-                return $"<b>Número Pedido:</b> {x.UserID}\n<b>Combo:</b>{x.ComboNameReference}\n<b>Data Pedido:</b> {x.DateOrder.ToString()}\n<b>Endereço:</b> {x.Address}";
+                this.orders  = x.OrdersId;
+                return $"<b>Número do Pedido:</b> {x.OrdersId}\n<b>Combo:</b>{x.ComboNameReference}\n<b>Data Pedido:</b> {x.DateOrder.ToString()}\n<b>Endereço:</b> {x.Address}";
             }
             catch (System.Exception)
             {
