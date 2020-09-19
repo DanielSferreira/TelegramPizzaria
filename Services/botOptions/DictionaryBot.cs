@@ -38,7 +38,6 @@ namespace TelegramPizzaria.Services.botOptions.Options
         }
         public IOption returnNewAction(string par, int args)
         {
-            System.Console.WriteLine("removerPedido:" + par);
             dict.Add("nº: ", new LoadOrderDetails(args));
             dict.Add("removerPedido", new RemoveOrderDetails(args));
             return dict[par];
